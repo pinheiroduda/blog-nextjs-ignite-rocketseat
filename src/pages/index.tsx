@@ -1,4 +1,5 @@
 import { GetStaticProps } from 'next';
+import { useRouter } from 'next/router';
 import Header from '../components/Header';
 
 import { getPrismicClient } from '../services/prismic';
@@ -26,8 +27,14 @@ interface HomeProps {
 }
 
 export default function Home() {
+  const router = useRouter()
+
+  function handleClickButton() {
+    router.push('/')
+  }
+
   return (
-    <Header />
+    <Header onHandleClickButton={handleClickButton}/>
   )
 }
 
