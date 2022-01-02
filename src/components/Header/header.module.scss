@@ -1,1 +1,12 @@
-// TODO
+.headerContainer {
+  max-width: 700px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4rem;
+
+  .logoButton {
+    background: transparent;
+    border: 0;
+  }
+}
