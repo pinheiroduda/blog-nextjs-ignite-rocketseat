@@ -1,17 +1,22 @@
-import { useRouter } from 'next/router'
+import Link from 'next/link'
 import styles from './header.module.scss'
 
-interface HeaderProps {
-  onHandleClickButton: () => void;
-}
+// interface HeaderProps {
+//   onHandleClickButton: () => void;
+// }
 
-export default function Header({ onHandleClickButton }: HeaderProps) {
+export default function Header() {
 
   return (
+    // <header className={styles.headerContainer}>
+    //   <button className={styles.logoButton} onClick={onHandleClickButton}>
+    //     <img src="/images/Logo.svg" alt="logo" />
+    //   </button>
+    // </header>
     <header className={styles.headerContainer}>
-      <button className={styles.logoButton} onClick={onHandleClickButton}>
+      <Link href="/">
         <img src="/images/Logo.svg" alt="logo" />
-      </button>
+      </Link>
     </header>
   )
 }
