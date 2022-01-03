@@ -6,6 +6,8 @@ import { getPrismicClient } from '../services/prismic';
 
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
+import Link from 'next/link';
+
 
 interface Post {
   uid?: string;
@@ -28,7 +30,23 @@ interface HomeProps {
 
 export default function Home({ results }: PostPagination) {
   return (
-    <Header />
+    <>
+      <Header />
+
+      <main>
+        <div>
+          { results.map(post => (
+            <Link key={post.uid} href={`/post/${post.uid}`}>
+              <a>
+                <strong>{post.data.title}</strong>
+                <p>{post.data.subtitle}</p>
+                <time>{post.first_publication_date}</time>
+              </a>
+            </Link>
+          )) }
+        </div>
+      </main>
+    </>
   )
 }
 
