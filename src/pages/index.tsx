@@ -7,6 +7,7 @@ import { getPrismicClient } from '../services/prismic';
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
 import Link from 'next/link';
+import { RichText } from 'prismic-dom';
 
 
 interface Post {
@@ -56,19 +57,23 @@ export const getStaticProps: GetStaticProps = async () => {
     Prismic.predicates.at('document.type', 'posts')
   ], {
     fetch: ['post.title', 'post.author', 'post.content'],
-    pageSize: 100,
+    pageSize: 2,
   });
 
   const posts = postsResponse.results.map(post => {
     return {
       uid: post?.uid,
-      first_publication_date: post.first_publication_date,
+      first_publication_date: new Date(post.first_publication_date).toLocaleDateString('pt-BR', {
+        day: '2-digit',
+        month: 'short',
+        year: 'numeric'
+      }),
       data: {
-        title: post.data.title,
-        subtitle: post.data.subtitle,
-        author: post.data.author,
+        title: RichText.asText(post.data.title),
+        subtitle: RichText.asText(post.data.subtitle),
+        author: RichText.asText(post.data.author)
       }
-    }
+    };
   })
 
   return {
