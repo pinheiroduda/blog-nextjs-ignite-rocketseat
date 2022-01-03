@@ -32,12 +32,12 @@ export default function Home({ results }: PostPagination) {
   )
 }
 
-export const getStaticProps = async () => {
+export const getStaticProps: GetStaticProps = async () => {
   const prismic = getPrismicClient();
   const postsResponse = await prismic.query([
     Prismic.predicates.at('document.type', 'posts')
   ], {
-    fetch: ['post.title', 'post.content'],
+    fetch: ['post.title', 'post.author', 'post.content'],
     pageSize: 100,
   });
 
