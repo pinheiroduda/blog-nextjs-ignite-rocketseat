@@ -1,13 +1,17 @@
 import { GetStaticProps } from 'next';
+import Link from 'next/link';
+
 import Header from '../components/Header';
 
 import Prismic from '@prismicio/client'
 import { getPrismicClient } from '../services/prismic';
 
+import { format } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
+
 import commonStyles from '../styles/common.module.scss';
 import styles from './home.module.scss';
-import Link from 'next/link';
-import { RichText } from 'prismic-dom';
+
 
 
 interface Post {
@@ -63,15 +67,15 @@ export const getStaticProps: GetStaticProps = async () => {
   const posts = postsResponse.results.map(post => {
     return {
       uid: post?.uid,
-      first_publication_date: new Date(post.first_publication_date).toLocaleDateString('pt-BR', {
-        day: '2-digit',
-        month: 'short',
-        year: 'numeric'
-      }),
+      first_publication_date: format(new Date(), ('dd-MM-yyyy'), 
+        {
+          locale: ptBR,
+        }
+      ),
       data: {
-        title: RichText.asText(post.data.title),
-        subtitle: RichText.asText(post.data.subtitle),
-        author: RichText.asText(post.data.author)
+        title: post.data.title,
+        subtitle: post.data.subtitle,
+        author: post.data.author
       }
     };
   })
