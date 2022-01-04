@@ -50,7 +50,13 @@ export default function Home({ posts }) {
               </a>
             </Link>
           )) }
+          <div className={styles.button}>
+            <Link href='/'>
+              <a href="">Carregar mais posts</a>
+            </Link>
+          </div>
         </div>
+
       </main>
     </>
   )
