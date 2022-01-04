@@ -38,14 +38,15 @@ export default function Home({ posts }) {
     <>
       <Header />
 
-      <main>
-        <div>
+      <main className={styles.homeContainer}>
+        <div className={styles.homeContent}>
           { posts.map(post => (
             <Link key={post.uid} href={`/post/${post.uid}`}>
               <a>
                 <strong>{post.data.title}</strong>
                 <p>{post.data.subtitle}</p>
                 <time>{post.first_publication_date}</time>
+                <h3>{post.data.author}</h3>
               </a>
             </Link>
           )) }
