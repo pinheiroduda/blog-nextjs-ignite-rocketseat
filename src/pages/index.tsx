@@ -33,14 +33,14 @@ interface HomeProps {
   postsPagination: PostPagination;
 }
 
-export default function Home({ results }: PostPagination) {
+export default function Home({ posts }) {
   return (
     <>
       <Header />
 
       <main>
         <div>
-          { results.map(post => (
+          { posts.map(post => (
             <Link key={post.uid} href={`/post/${post.uid}`}>
               <a>
                 <strong>{post.data.title}</strong>
