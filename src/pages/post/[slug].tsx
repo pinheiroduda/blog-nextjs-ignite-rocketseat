@@ -1,3 +1,5 @@
+import { format } from 'date-fns';
+import ptBR from 'date-fns/locale/pt-BR';
 import { GetStaticPaths, GetStaticProps } from 'next';
 import Header from '../../components/Header';
 
@@ -27,7 +29,7 @@ interface PostProps {
   post: Post;
 }
 
-export default function Post() {
+export default function Post({ post }: PostProps) {
   return (
     <Header />
   )
@@ -40,9 +42,34 @@ export default function Post() {
 //   // TODO
 // };
 
-// export const getStaticProps = async context => {
-//   const prismic = getPrismicClient();
-//   const response = await prismic.getByUID(TODO);
+export const getStaticProps: GetStaticProps = async context => {
+  const prismic = getPrismicClient();
+  const response = await prismic.getByUID('posts', 'slug', {});
 
-//   // TODO
-// };
+  const post = {
+    first_publication_date: format(new Date(), ('dd-MM-yyyy'), 
+      {
+        locale: ptBR,
+      }
+    ),
+    data: {
+      title: response.data.title,
+      banner: {
+        url: response.data.banner.url
+      },
+      author: response.data.author,
+      content: {
+        heading: response.data.content.heading,
+        body: {
+          text: response.data.content.body.text
+        }
+      }
+    }
+  }
+
+  return {
+    props : {
+      post
+    }
+  }
+}
