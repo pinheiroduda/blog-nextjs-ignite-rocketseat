@@ -12,6 +12,7 @@ import { getPrismicClient } from '../../services/prismic';
 import commonStyles from '../../styles/common.module.scss';
 import styles from './post.module.scss';
 
+
 interface Post {
   first_publication_date: string | null;
   data: {
@@ -79,7 +80,7 @@ export const getStaticProps: GetStaticProps = async context => {
     data: {
       title: response.data.title,
       banner: {
-        url: response.data.banner.url
+        url: response.data.banner,
       },
       author: response.data.author,
       content: response.data.content.map(content => {
